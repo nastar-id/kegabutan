@@ -1,4 +1,6 @@
 <?php
+// Gabut part 1 :'v
+// Usage: php file.php domain.com/ip
 echo "
 _________________________   ____        ._____________ 
 \______   \_   _____/\   \ /   /        |   \______   \
