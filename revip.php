@@ -1,6 +1,6 @@
 <?php
-// Gabut part 1 :'v
-// Usage: php file.php domain.com/ip
+// Kegabutan part 1 :"v
+// Usage: php revip.php domain/ip
 echo "
 _________________________   ____        ._____________ 
 \______   \_   _____/\   \ /   /        |   \______   \
@@ -21,10 +21,22 @@ if($argv[1] == "") {
 	$ex = curl_exec($ch);
 	curl_close($ch);
 	echo $ex."\n";
-	$file = fopen("hsl.txt", "w");
-	fwrite($file, $ex."\n");
-	fclose($file);
-	sleep(1.5);
-	echo "\nBisa cek hasil di > hsl.txt\n";
+	echo "\nMau simpan hasilnya ke file? [y/n] ";
+	$nganu = trim(fgets(STDIN));
+	if ($nganu == "y" or $nganu == "Y") {
+		echo "Masukan nama file: ";
+		$nemfel = trim(fgets(STDIN));
+		$file = fopen($nemfel, "w");
+		fwrite($file, $ex."\n");
+		fclose($file);
+		sleep(1.5);
+		echo "Bisa cek hasil di > ".$nemfel."\n";
+	} else {
+		echo "Okelah kalo begitu\n";
+		sleep(0.5);
+		echo "Exiting....\n";
+		sleep(1);
+		exit;
+	}
 }
 ?>
