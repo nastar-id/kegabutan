@@ -1,8 +1,9 @@
 <?php
 /*
 	Makasih udh gunain tool w xixixi
+        It's for single target my bois
 	Support www.nyamuxpl0it.xyz
-	Ganti author = lo ampas
+	Ganti author = lo ampas tq
 */
 class Exploit {
   function startExploit() {
