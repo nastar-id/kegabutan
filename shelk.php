@@ -15,7 +15,7 @@ if(isset($_GET["path"])) echo "Current dir: <a href='?path=".htmlspecialchars($_
 </form>
 
 <?php
-if(isset($_GET["path"])) {
+if(htmlspecialchars(isset($_GET["path"]))) {
   ?>
   
   <script>
