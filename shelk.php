@@ -5,7 +5,7 @@ $wget = (@shell_exec('wget --help')) ? "<font color='green'>ON</font>" : "<font 
 $perl = (@shell_exec('perl --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
 $ruby = (@shell_exec('ruby --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
 $python = (@shell_exec('python --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
-$gcc = (@shell_exec('gcc --help')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
+$gcc = (@shell_exec('gcc --version')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
 $pkexec = (@shell_exec('pkexec --version')) ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>";
 
 echo php_uname();
